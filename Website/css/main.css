@@ -1,0 +1,34 @@
+.header
+{
+  height: 25%;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: #ddd;
+  border-bottom-style: solid;
+  width: 100%;
+}
+
+.header__content
+{
+  font-size: 2em;
+  text-transform: uppercase;
+  text-align: right; 
+  color: lightskyblue;
+}
+
+.contact
+{
+  color: #ddd;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.background
+{
+  background-color: #222;
+}
+
+.content
+{
+  width: 100%;
+}

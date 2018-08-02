@@ -1,0 +1,14 @@
+@media screen and (min-width: 700px)
+{
+
+}
+
+@media screen and (min-width: 1125px)
+{
+    .background
+    {
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
