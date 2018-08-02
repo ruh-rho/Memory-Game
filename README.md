@@ -1,1 +1,3 @@
 # Memory-Game
+Requirements:
+Browser
