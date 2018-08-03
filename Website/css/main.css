@@ -3,13 +3,14 @@
   height: 25%;
   margin-top: 10px;
   padding-left: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 3px;
   width: 100%;
 }
 
 .header__content
 {
-  font-size: 2em;
+  font-family: serif;
+  font-size: 2.4em;
   text-transform: uppercase;
   text-align: left; 
   color: lightskyblue;
@@ -20,41 +21,85 @@
   color: #ddd;
   text-transform: lowercase;
   letter-spacing: 1px;
+  text-align: right;
+  padding-top: 5px;
 }
 
+#star
+{
+  color: gold;
+}
+
+#time
+{
+  color: green;
+}
+#moves
+{
+  color: green;
+}
 .background
 {
   background-color: #222;
+
+  user-select: none;
 }
 
 .content
 {
   width: 100%;
 }
+
 #canvas
 {
   display: flex;
   flex-wrap: wrap;
 }
 
+.controls
+{
+  font-family: serif;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  text-align: left; 
+  color: lightskyblue;
+  padding-left: 10px;
+  line-height: 1.4em;
+  display: flex;
+  flex-direction: column;
+}
+
+#reset:hover
+{
+  color:red;
+  cursor: pointer;
+}
+
+#reset
+{
+  width: 75px;
+  background-color: lightgrey;
+  color: black;
+  border-radius: 5%;
+  text-align: center;
+}
+
 .card
 {
-  height: 220px;
-  width: 160px;
-  border: 3px solid aqua;
-  border-radius: 5%;
-  font-size: 2em;
+  height: 110px;
+  width: 80px;
+  font-size: 1em;
   text-align: center;
-  color: yellow;
+  color: lightblue;
 }
 
 .card__content
 {
   height: 80%;
   width: 80%;
-  background-color: orange;
+  background-color: lightblue;
   margin: auto;
-  border: 3px solid red;
+  border: 3px solid lightblue;
   border-radius: 5%;
   font-size: 4.5em;
   cursor: pointer;
@@ -62,12 +107,7 @@
 
 .card__content:hover
 {
-  height: 80%;
-  width: 80%;
-  background-color: grey;
-  margin: auto;
-  border: 3px solid red;
+  border: 5px solid grey;
   border-radius: 5%;
-  font-size: 4.5em;
   cursor: pointer;
 }
