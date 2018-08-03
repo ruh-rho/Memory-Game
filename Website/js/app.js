@@ -9,7 +9,7 @@ let lastCard;
 
 function generateCards()
 {
-    let order = generateRandomCardOrder(CARDSYMBOLS.length);
+    let order = generateRandomCardOrder();
     let canvas = document.getElementById("canvas");
     for(let cardNumber = 0; cardNumber < order.length; cardNumber++)
     {
@@ -47,7 +47,6 @@ function cardClicked()
         else
         {
             cardsToHide = [];
-
             hideCards(cardsToSet);
         }
 
@@ -99,12 +98,12 @@ function clearCards()
     }
 }
 
-function generateRandomCardOrder(numberOfUniqueCards)
+function generateRandomCardOrder()
 {
     let order = [];
-    for(let i = 0; i<numberOfUniqueCards*2; i++)
+    for(let i = 0; i<NUMBEROFUNIQUECARDS*2; i++)
     {
-        order.push(i%numberOfUniqueCards);
+        order.push(i%NUMBEROFUNIQUECARDS);
     }
 
     let newOrder = [];
