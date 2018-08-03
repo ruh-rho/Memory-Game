@@ -7,6 +7,6 @@ Requirements:
 
 Browser (Tested with Chrome)
 
-How?
+How to run?
 
-Clone the project and launch index.html which is inside the Website folder.
+Clone the project and launch index.html with any modern browser. This is located inside the Website folder.
