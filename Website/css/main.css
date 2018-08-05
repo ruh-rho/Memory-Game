@@ -107,7 +107,7 @@
 
 .card__content:hover
 {
-  border: 5px solid grey;
+  border: 3px solid orange;
   border-radius: 5%;
   cursor: pointer;
 }

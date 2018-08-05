@@ -1,53 +1,54 @@
-const CARDSYMBOLS = String.fromCharCode(7,8,14,15,18,29,191,612);
+const CARDSYMBOLS = "ABCDEFGH";//String.fromCharCode(7,8,14,15,18,29,191,612); 
 const NUMBEROFUNIQUECARDS = CARDSYMBOLS.length;
+const MATCH = 2; //only supports 2 for the time being
 
 let pairsFound = 0;
 let numberOfMoves = 0;
-let startTime = 0;
-
+let startTime = new Date().getTime() / 1000;
+let gameTime = new Date().getTime() / 1000;
 let lastCard;
 
 function generateCards()
 {
-    let order = generateRandomCardOrder();
     let canvas = document.getElementById("canvas");
-    for(let cardNumber = 0; cardNumber < order.length; cardNumber++)
-    {
+    let randomizedOrder = generateRandomCardOrder();
+
+    randomizedOrder.forEach(cardSymbolID => {
         let cardDiv = document.createElement("div");
-        cardDiv.innerHTML = cardNumber + 1;
+        cardDiv.innerHTML = canvas.children.length + 1;
         cardDiv.className = "card";
 
         let cardContentDiv = document.createElement("div");
-        cardContentDiv.innerHTML = CARDSYMBOLS.charAt(order[cardNumber]);
+        cardContentDiv.innerHTML = CARDSYMBOLS.charAt(cardSymbolID);
         cardContentDiv.className = "card__content";
 
         cardDiv.appendChild(cardContentDiv);
         canvas.appendChild(cardDiv);
 
         cardContentDiv.addEventListener("click", cardClicked);
-    }
+    });
 }
 
 function cardClicked()
 {
     event.target.style.color = "blue";
-    if(lastCard != null && lastCard != event.target)
+    
+    if(lastCard != null && lastCard != event.target) //separate cards have been selected
     {
-        cardsToSet = [];
-        cardsToSet.push(event.target);
-        cardsToSet.push(lastCard);
-        if(lastCard.innerHTML == event.target.innerHTML)
+        selectedCards = [];
+        selectedCards.push(event.target);
+        selectedCards.push(lastCard);
+        if(lastCard.innerHTML == event.target.innerHTML) //match is found
         {
             lastCard.removeEventListener("click", cardClicked);
             event.target.removeEventListener("click", cardClicked);
-            revealCards(cardsToSet);
+            revealCards(selectedCards);
             pairsFound++;
             checkIfPlayerWon();
         }
         else
         {
-            cardsToHide = [];
-            hideCards(cardsToSet);
+            hideCards(selectedCards);
         }
 
         numberOfMoves++;
@@ -76,13 +77,17 @@ function hideCards(cards)
 {
     setTimeout(() => {
         cards.forEach(card => {
-            card.style.color = "lightblue";
+            if(card != lastCard)
+            {
+                card.style.color = "lightblue";
+            }
         });
     }, 1000);
 }
 
 function startGame()
 {
+    lastCard = null;
     clearCards();
     generateCards();
     pairsFound = 0;
@@ -100,8 +105,13 @@ function clearCards()
 
 function generateRandomCardOrder()
 {
+    //Creates an array of n * MATCH length, where n is NUMBEROFUNIQUECARDS and MATCH is the number of the same cards to match together.
+    //After creating an ordered array [0,1,2,3,4,... n * MATCH], I will return a new array that's a permutation of the one created.
+    //Utilizes memory to generate a random order, potential optimization would be to use a hashmap. 
+
     let order = [];
-    for(let i = 0; i<NUMBEROFUNIQUECARDS*2; i++)
+
+    for(let i = 0; i<NUMBEROFUNIQUECARDS*MATCH; i++)
     {
         order.push(i%NUMBEROFUNIQUECARDS);
     }
@@ -127,20 +137,19 @@ function checkIfPlayerWon()
     if(pairsFound == NUMBEROFUNIQUECARDS)
     {
         setTimeout(() => {
-            if (confirm("Congratulations, you won! You got " + getNumberOfStars() + " stars with " + numberOfMoves + " moves in " + getElapsedGameTime() + " seconds. Would you like to play again?" )) {
+            if (confirm("Congratulations, you won! You got " + getNumberOfStars() + " stars with " + numberOfMoves + " moves in " + gameTime + " seconds. Would you like to play again?" )) {
                 restart();
-            } 
+            }
         }, 2000);
     }
 }
 
 function updateUI()
 {
-    if(pairsFound != NUMBEROFUNIQUECARDS)
-    {
-        let time = document.getElementById("time");
-        time.innerHTML = getElapsedGameTime();
-    }
+    updateGameTime();
+
+    let time = document.getElementById("time");
+    time.innerHTML = gameTime;
 
     let stars = document.getElementById("star");
     stars.innerHTML = getNumberOfStars();
@@ -149,9 +158,12 @@ function updateUI()
     moveCounter.innerHTML = numberOfMoves;
 }
 
-function getElapsedGameTime()
+function updateGameTime()
 {
-    return Math.round((new Date().getTime() / 1000) - startTime);
+    if(pairsFound != NUMBEROFUNIQUECARDS)
+    {
+        gameTime = Math.round(new Date().getTime() / 1000 - startTime);
+    }
 }
 
 function getNumberOfStars()
@@ -170,6 +182,6 @@ function getNumberOfStars()
     }
 }
 
-window.setInterval(function(){
+setInterval(() => {
     updateUI();
-}, 1000);
+}, 750);
