@@ -107,7 +107,6 @@ function generateRandomCardOrder()
 {
     //Creates an array of n * MATCH length, where n is NUMBEROFUNIQUECARDS and MATCH is the number of the same cards to match together.
     //After creating an ordered array [0,1,2,3,4,... n * MATCH], I will return a new array that's a permutation of the one created.
-    //Utilizes memory to generate a random order, potential optimization would be to use a hashmap. 
 
     let order = [];
 
@@ -115,16 +114,22 @@ function generateRandomCardOrder()
     {
         order.push(i%NUMBEROFUNIQUECARDS);
     }
+    
+    shuffle(order);
+    return order;
+}
 
-    let newOrder = [];
-    while(order.length > 0)
+function shuffle(array)
+{
+    let currentIndex = array.length - 1;
+    while(currentIndex)
     {
-        let currentIndex = Math.floor(Math.random() * order.length);
-        newOrder.push(order[currentIndex]);
-        order.splice(currentIndex , 1);
+        let indexToSwap = Math.floor(Math.random() * currentIndex);
+        let temp = array[indexToSwap];
+        array[indexToSwap] = array[currentIndex];
+        array[currentIndex] = temp;
+        currentIndex--;
     }
-
-    return newOrder;
 }
 
 function restart()
