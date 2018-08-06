@@ -1,12 +1,11 @@
-# Memory-Game
-*What is it?*
+# Memory Game
 
-Test your memory by pairing up to 8 cards in a random order.
+### What is it
+Test your memory by pairing several cards together.
 
-Requirements:
+### Requirements
++ Browser
++ Included index.html/app.js/main.css files
 
-Browser (Tested with Chrome)
-
-How to run?
-
-Clone the project and launch index.html with any modern browser. This is located inside the Website folder.
+### How to run
+Clone the project and open the index.html file in a browser which is located inside the Website folder
